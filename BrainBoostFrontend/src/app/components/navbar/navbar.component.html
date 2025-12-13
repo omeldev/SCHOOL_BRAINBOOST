@@ -1,0 +1,20 @@
+@let isLoggedIn = isLoggedIn$ | async;
+@let loggedInUser = loggedInUser$ | async;
+
+<div class="navbar-container">
+  <div class="navigation-container">
+  <a routerLink="/home" class="navbar-logo">BrainBoost</a>
+  </div>
+
+  <div class="user-actions-container">
+
+      @if (!isLoggedIn) {
+        <a routerLink="/login" class="login-link">Login</a>
+        <a routerLink="/register" class="register-link">Register</a>
+      } @else {
+        <a routerLink="/profile" class="profile-link">Profile</a>
+        <span class="welcome-message">Welcome, {{ loggedInUser?.firstName }}!</span>
+        <button class="logout-button" (click)="logout$()">Logout</button>
+      }
+  </div>
+</div>

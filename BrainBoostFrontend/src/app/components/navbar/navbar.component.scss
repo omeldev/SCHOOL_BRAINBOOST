@@ -1,0 +1,104 @@
+:host {
+
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .user-actions-container {
+
+      .login-link {
+        font-size: 16px;
+        color: #007bff;
+        text-decoration: none;
+        padding: 10px 15px;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: #007bff;
+          color: #fff;
+        }
+      }
+
+      .register-link {
+        font-size: 16px;
+        color: #28a745;
+        text-decoration: none;
+        padding: 10px 15px;
+        border: 1px solid #28a745;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: #28a745;
+          color: #fff;
+        }
+      }
+
+      .profile-link {
+        font-size: 16px;
+        color: #333;
+        text-decoration: none;
+        padding: 10px 15px;
+        border: 1px solid #333;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: #333;
+          color: #fff;
+        }
+      }
+
+      .welcome-message {
+        font-size: 16px;
+        color: #555;
+      }
+
+      .logout-button {
+        font-size: 16px;
+        color: #dc3545;
+        background: none;
+        border: 1px solid #dc3545;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: #dc3545;
+          color: #fff;
+        }
+      }
+    }
+
+    .navigation-container {
+      display: flex;
+      gap: 20px;
+
+      .navbar-logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007bff;
+        text-decoration: none;
+
+      }
+      .nav-link {
+        font-size: 16px;
+        color: #333;
+        text-decoration: none;
+        padding: 10px 15px;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #007bff;
+        }
+      }
+    }
+  }
+}

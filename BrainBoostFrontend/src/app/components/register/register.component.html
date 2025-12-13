@@ -1,0 +1,39 @@
+<div class="register-container">
+
+  <h2>Register</h2>
+
+  <!-- Username -->
+  <input
+    type="text"
+    placeholder="Username"
+    (input)="nextUsername($event)"
+  />
+
+
+  <!-- Password -->
+  <input
+    type="password"
+    placeholder="Password"
+    (input)="nextPassword($event)"
+  />
+
+  <!-- First Name -->
+  <input
+    type="text"
+    placeholder="First Name"
+    (input)="nextFirstName($event)"
+  />
+
+  <!-- Last Name -->
+  <input
+    type="text"
+    placeholder="Last Name"
+    (input)="nextLastName($event)"
+  />
+
+</div>
+
+  <!-- Register Button -->
+  <button (click)="register$()">
+    Register
+  </button>

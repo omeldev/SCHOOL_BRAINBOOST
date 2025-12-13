@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/cli": "^19.2.19",
+    "@ngxs/store": "^20.1.0"
+  }
+}
