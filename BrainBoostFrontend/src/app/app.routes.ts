@@ -3,6 +3,7 @@ import {ErrorComponent} from './components/error/error.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {loggedInGuardGuard} from './guard/logged-in-guard.guard';
+import {FlashcardCreateComponent} from './components/flashcard/flashcard-create/flashcard-create.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,16 @@ export const routes: Routes = [
     component: RegisterComponent,
     canActivate: [
       loggedInGuardGuard
+    ]
+  },
+
+  {
+    path: 'flashcard',
+    children: [
+      {
+        path: 'create',
+        component: FlashcardCreateComponent
+      }
     ]
   },
   {

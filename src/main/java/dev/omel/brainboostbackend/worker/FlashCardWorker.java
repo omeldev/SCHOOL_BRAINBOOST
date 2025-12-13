@@ -3,8 +3,10 @@ package dev.omel.brainboostbackend.worker;
 import dev.omel.brainboostbackend.bean.FlashCardBean;
 import dev.omel.brainboostbackend.domain.FlashCardEntity;
 import dev.omel.brainboostbackend.domain.FlashCardSetEntity;
+import dev.omel.brainboostbackend.domain.UserEntity;
 import dev.omel.brainboostbackend.repository.FlashCardRepository;
 import dev.omel.brainboostbackend.repository.FlashCardSetRepository;
+import dev.omel.brainboostbackend.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,10 +17,12 @@ public class FlashCardWorker {
 
     private final FlashCardRepository flashCardRepository;
     private final FlashCardSetRepository flashCardSetRepository;
+    private final UserRepository userRepository;
 
-    public FlashCardWorker(FlashCardRepository flashCardRepository, FlashCardSetRepository flashCardSetRepository) {
+    public FlashCardWorker(FlashCardRepository flashCardRepository, FlashCardSetRepository flashCardSetRepository, UserRepository userRepository) {
         this.flashCardRepository = flashCardRepository;
         this.flashCardSetRepository = flashCardSetRepository;
+        this.userRepository = userRepository;
     }
 
     public FlashCardBean getFlashCardBean(Long flashCardId) {
@@ -46,11 +50,15 @@ public class FlashCardWorker {
     }
 
     public boolean createFlashCard(FlashCardBean flashCardBean, Long flashCardSetId) {
+        UserEntity userEntity = userRepository.getReferenceById(flashCardBean.userId());
+
         FlashCardEntity flashCardEntity = new FlashCardEntity();
         flashCardEntity.setTitle(flashCardBean.title());
         flashCardEntity.setQuestion(flashCardBean.question());
         flashCardEntity.setAnswer(flashCardBean.answer());
+        flashCardEntity.setCreator(userEntity);
         FlashCardSetEntity flashCardSetEntity;
+
         if(flashCardSetId == null){
             flashCardSetEntity = new FlashCardSetEntity();
             flashCardSetRepository.save(flashCardSetEntity);

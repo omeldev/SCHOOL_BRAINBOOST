@@ -1,0 +1,18 @@
+<input
+type="text"
+placeholder="Title"
+(input)="nextFlashCardTitle($event)">
+
+<textarea
+  placeholder="Question"
+  (input)="nextFlashCardQuestion($event)">
+</textarea>
+
+<textarea
+  placeholder="Answer"
+  (input)="nextFlashCardAnswer($event)">
+</textarea>
+
+<button (click)="createFlashCard$()">
+  Create Flash Card
+</button>
