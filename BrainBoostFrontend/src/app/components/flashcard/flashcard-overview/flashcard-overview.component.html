@@ -1,1 +1,13 @@
-<p>flashcard-overview works!</p>
+@let flashCards = flashCards$ | async;
+
+@if (!flashCards || flashCards.length === 0) {
+  <p>No flashcards available. Create some to get started!</p>
+} @else {
+
+  @for (flashCard of flashCards; track flashCard.id) {
+    <app-flashcard-card
+      [flashCard]="flashCard"
+    />
+  }
+
+}

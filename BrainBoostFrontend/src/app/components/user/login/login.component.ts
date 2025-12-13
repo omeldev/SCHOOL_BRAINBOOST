@@ -1,9 +1,9 @@
 import {Component, signal} from '@angular/core';
 import {Store} from '@ngxs/store';
-import {UserService} from '../../service/rest/user/user.service';
+import {UserService} from '../../../service/rest/user/user.service';
 import {BehaviorSubject, combineLatest, firstValueFrom, map} from 'rxjs';
-import {LoginBean} from '../../bean/user';
-import {UserAction} from '../../store/user/user.actions';
+import {LoginBean} from '../../../bean/user';
+import {UserAction} from '../../../store/user/user.actions';
 import {Router} from '@angular/router';
 
 @Component({

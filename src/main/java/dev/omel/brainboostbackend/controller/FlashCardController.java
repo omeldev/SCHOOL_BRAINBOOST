@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller()
 public class FlashCardController {
 
@@ -36,12 +38,12 @@ public class FlashCardController {
     }
 
     @GetMapping("/user/{id}/flashcards/")
-    public ResponseEntity<java.util.List<FlashCardBean>> getFlashCardBeansFromUser(@PathVariable Long id) {
+    public ResponseEntity<List<FlashCardBean>> getFlashCardBeansFromUser(@PathVariable Long id) {
         return ResponseEntity.ok(flashCardWorker.getFlashCardBeansFromUser(id));
     }
 
     @GetMapping("/flashcardset/{id}/flashcards/")
-    public ResponseEntity<java.util.List<FlashCardBean>> getFlashCardBeansFromFlashCardSetById(@PathVariable Long id) {
+    public ResponseEntity<List<FlashCardBean>> getFlashCardBeansFromFlashCardSetById(@PathVariable Long id) {
         return ResponseEntity.ok(flashCardWorker.getFlashCardBeansFromFlashCardSetById(id));
     }
 

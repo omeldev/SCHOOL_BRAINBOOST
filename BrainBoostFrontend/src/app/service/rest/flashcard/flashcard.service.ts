@@ -15,5 +15,9 @@ export class FlashcardService {
     return this.restService.post$<FlashcardBean>('/flashcard/create/', flashcard);
   }
 
+  public getFlashCardsByUserId$(userId: number) {
+    return this.restService.get$<FlashcardBean[]>(`/user/${userId}/flashcards/`);
+  }
+
 
 }
