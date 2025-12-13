@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {Component} from '@angular/core';
 import {Store} from '@ngxs/store';
 import {UserService} from '../../../service/rest/user/user.service';
 import {BehaviorSubject, combineLatest, firstValueFrom, map} from 'rxjs';
