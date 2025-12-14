@@ -33,15 +33,15 @@ export const routes: Routes = [
   {
     path: 'flashcard',
 
-    canActivate: [
-      redirectToHomeGuardIfNotLoggedIn
-    ],
+
 
     children: [
       {
         path: 'create',
         component: FlashcardCreateComponent,
-
+        canActivate: [
+          redirectToHomeGuardIfNotLoggedIn
+        ],
       },
       {
         path: 'overview',

@@ -5,6 +5,8 @@ import {UserState} from '../../../store/user/user.state';
 import {AsyncPipe} from '@angular/common';
 import {firstValueFrom} from 'rxjs';
 import {UserAction} from '../../../store/user/user.actions';
+import {ToastAction} from '../../../store/toast/toast.action';
+import {ToastType} from '../../../bean/ToastBean';
 
 @Component({
   selector: 'app-navbar',
@@ -25,5 +27,19 @@ export class NavbarComponent {
 
   public async logout$() {
     return firstValueFrom(this.store.dispatch(new UserAction.Logout))
+  }
+
+  public async copyLinkToClipboard() {
+    const user = await firstValueFrom(this.loggedInUser$);
+    if(!user) {
+      throw new Error("User not logged in");
+    }
+    const link = `${window.location.origin}/flashcard/learn?userId=${user.id}`;
+    await navigator.clipboard.writeText(link);
+    return firstValueFrom(this.store.dispatch(new ToastAction.ShowToast({
+      message: 'Link copied to clipboard!',
+      type: ToastType.SUCCESS,
+      duration: 3000
+    })))
   }
 }

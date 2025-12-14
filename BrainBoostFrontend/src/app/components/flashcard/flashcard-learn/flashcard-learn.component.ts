@@ -6,6 +6,7 @@ import {filter, firstValueFrom, switchMap} from 'rxjs';
 import {UserBean} from '../../../bean/user';
 import {FlashcardCardComponent} from '../flashcard-card/flashcard-card.component';
 import {AsyncPipe} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-flashcard-learn',
@@ -21,15 +22,20 @@ export class FlashcardLearnComponent {
 
   private readonly store = inject(Store);
   private readonly flashCardService = inject(FlashcardService);
+  private readonly route = inject(ActivatedRoute);
 
   protected activeFlashCardIndex = 0;
 
   public readonly flashCards$ = this.store
     .select(UserState.getUser)
     .pipe(
-      filter((user): user is UserBean => !!user),
-      switchMap(user =>
-        this.flashCardService.getFlashCardsByUserId$(user.id)
+      filter((user): user is UserBean => !!user || !!this.route.snapshot.queryParamMap.get('userId')),
+      switchMap(user => {
+          if (this.route.snapshot.queryParamMap.get('userId')) {
+            return this.flashCardService.getFlashCardsByUserId$(Number(this.route.snapshot.queryParamMap.get('userId')))
+          }
+          return this.flashCardService.getFlashCardsByUserId$(user.id);
+        }
       )
     );
 
