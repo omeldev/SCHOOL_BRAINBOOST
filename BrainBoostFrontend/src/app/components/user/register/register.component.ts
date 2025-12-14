@@ -5,6 +5,8 @@ import {UserService} from '../../../service/rest/user/user.service';
 import {Store} from '@ngxs/store';
 import {UserAction} from '../../../store/user/user.actions';
 import {Router} from '@angular/router';
+import {ToastAction} from '../../../store/toast/toast.action';
+import {ToastType} from '../../../bean/ToastBean';
 
 @Component({
   selector: 'app-register',
@@ -63,12 +65,47 @@ export class RegisterComponent {
 
   public async register$() {
     const registerBean = await firstValueFrom(this.registerUserBean$);
+
+    if(registerBean.firstName?.trim() === '') {
+      this.store.dispatch(new ToastAction.ShowToast({
+        message: 'First name cannot be empty.',
+        type: ToastType.ERROR,
+        duration: 3000
+      }))
+      return;
+    }
+
+    if(registerBean.lastName?.trim() === '') {
+      this.store.dispatch(new ToastAction.ShowToast({
+        message: 'Last name cannot be empty.',
+        type: ToastType.ERROR,
+        duration: 3000
+      }))
+      return;
+    }
+
+    if(registerBean.username?.trim() === '') {
+      this.store.dispatch(new ToastAction.ShowToast({
+        message: 'Username cannot be empty.',
+        type: ToastType.ERROR,
+        duration: 3000
+      }))
+      return;
+    }
+
+    if(registerBean.password?.trim() === '') {
+      this.store.dispatch(new ToastAction.ShowToast({
+        message: 'Password cannot be empty.',
+        type: ToastType.ERROR,
+        duration: 3000
+      }))
+      return;
+    }
+
     return firstValueFrom(this.userService.register$(registerBean)).then((user) => {
       this.store.dispatch(new UserAction.SetUser(user));
     }).then(() => {
       this.router.navigateByUrl(this.router.createUrlTree(['/'])); // Navigate to home or dashboard after login
     });
-
   }
-
 }

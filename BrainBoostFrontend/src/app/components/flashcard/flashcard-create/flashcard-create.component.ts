@@ -4,6 +4,7 @@ import {FlashcardService} from '../../../service/rest/flashcard/flashcard.servic
 import {Store} from '@ngxs/store';
 import {UserState} from '../../../store/user/user.state';
 import {FlashcardBean} from '../../../bean/flashcard';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-flashcard-create',
@@ -25,7 +26,8 @@ export class FlashcardCreateComponent {
   private readonly user$ = inject(Store).select(UserState.getUser);
 
 
-  constructor(private readonly flashCardService: FlashcardService) {
+  constructor(private readonly flashCardService: FlashcardService,
+              private readonly router: Router) {
   }
 
   public nextFlashCardTitle(event: Event) {
@@ -56,6 +58,8 @@ export class FlashcardCreateComponent {
       userId: user.id
     }
 
-    return firstValueFrom(this.flashCardService.createFlashcard$(flashCardBean));
+    return firstValueFrom(this.flashCardService.createFlashcard$(flashCardBean)).then(() => {
+      this.router.navigateByUrl(this.router.createUrlTree(['/flashcard/overview']));
+    });
   }
 }

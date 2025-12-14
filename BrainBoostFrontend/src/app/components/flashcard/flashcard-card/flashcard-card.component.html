@@ -1,10 +1,15 @@
+@let reveal = revealed$ | async;
 @if (flashCard()) {
   <div class="flashcard-card">
     <div class="flashcard-question">
       <h3>{{ flashCard().question }}</h3>
     </div>
-    <div class="flashcard-answer">
+    <div (click)="toggleReveal()" class="flashcard-answer">
+      @if (reveal) {
       <p>{{ flashCard().answer }}</p>
+      } @else {
+        <p>Click to reveal</p>
+      }
     </div>
   </div>
 }

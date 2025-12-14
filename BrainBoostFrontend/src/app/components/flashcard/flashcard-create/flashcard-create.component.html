@@ -1,18 +1,29 @@
+<div class="flashcard-create-container">
+<div class="input-container">
+  <label class="input-label">Title: </label>
 <input
 type="text"
 placeholder="Title"
 (input)="nextFlashCardTitle($event)">
+</div>
 
+<div class="input-container">
+  <label class="input-label">Question: </label>
 <textarea
   placeholder="Question"
   (input)="nextFlashCardQuestion($event)">
 </textarea>
+</div>
 
+<div class="input-container">
+  <label class="input-label">Answer: </label>
 <textarea
   placeholder="Answer"
   (input)="nextFlashCardAnswer($event)">
 </textarea>
+</div>
 
-<button (click)="createFlashCard$()">
+<button class="create-flashcard-button" (click)="createFlashCard$()">
   Create Flash Card
 </button>
+</div>

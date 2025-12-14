@@ -1,13 +1,18 @@
 @let flashCards = flashCards$ | async;
 
 @if (!flashCards || flashCards.length === 0) {
-  <p>No flashcards available. Create some to get started!</p>
+  <!-- Maybe loading animation? -->
 } @else {
 
+  <div class="flashcard-overview-container">
+
   @for (flashCard of flashCards; track flashCard.id) {
+    <div class="flashcard-item">
     <app-flashcard-card
       [flashCard]="flashCard"
     />
+    <button class="flashcard-delete-button" (click)="deleteFlashcard(flashCard.id)">Delete</button>
+    </div>
   }
-
+  </div>
 }

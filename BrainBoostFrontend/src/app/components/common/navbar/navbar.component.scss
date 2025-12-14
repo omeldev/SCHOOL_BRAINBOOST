@@ -4,11 +4,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+
     background-color: #f8f9fa;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     .user-actions-container {
+
+      display: flex;
+      gap: 15px;
+      align-items: center;
 
       .login-link {
         font-size: 16px;
@@ -80,12 +84,14 @@
     .navigation-container {
       display: flex;
       gap: 20px;
+      align-items: center;
 
       .navbar-logo {
-        font-size: 24px;
-        font-weight: bold;
-        color: #007bff;
-        text-decoration: none;
+
+        .logo-image{
+          height: 6rem;
+          width: auto;
+        }
 
       }
       .nav-link {

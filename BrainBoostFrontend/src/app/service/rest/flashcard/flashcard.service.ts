@@ -19,5 +19,9 @@ export class FlashcardService {
     return this.restService.get$<FlashcardBean[]>(`/user/${userId}/flashcards/`);
   }
 
+  public deleteFlashcardById$(flashcardId: number) {
+    return this.restService.delete$<boolean>(`/flashcard/${flashcardId}/`);
+  }
+
 
 }

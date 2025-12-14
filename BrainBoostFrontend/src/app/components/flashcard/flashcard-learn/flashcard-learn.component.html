@@ -1,16 +1,18 @@
 @let flashCards = flashCards$ | async;
 
+<div class="flashcard-learning-container">
 @if (!flashCards || flashCards.length === 0) {
-  <p>No flashcards available. Create some to get started!</p>
+  <!-- Maybe loading animation? -->
 } @else {
 
   <!-- Display single flashcard with navigation buttons -->
     <!-- Need to be moved to its own component later -->
   @if (flashCards) {
-    <div class="navigation-buttons">
+
       <app-flashcard-card
         [flashCard]="flashCards[activeFlashCardIndex]"
       />
+  <div class="navigation-buttons">
       @if (activeFlashCardIndex > 0) {
         <button (click)="previousFlashCard()">Previous</button>
       }
@@ -21,3 +23,4 @@
     </div>
   }
 }
+</div>

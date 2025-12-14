@@ -4,11 +4,15 @@ import {UserService} from '../../../service/rest/user/user.service';
 import {BehaviorSubject, combineLatest, firstValueFrom, map} from 'rxjs';
 import {LoginBean} from '../../../bean/user';
 import {UserAction} from '../../../store/user/user.actions';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {ToastAction} from '../../../store/toast/toast.action';
+import {ToastType} from '../../../bean/ToastBean';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -28,14 +32,10 @@ export class LoginComponent {
       })
     ));
 
-
-
-
   constructor(private readonly store: Store,
               private readonly userService: UserService,
               private readonly router: Router) {
   }
-
 
   public nextUserName(event: Event) {
     this.userNameSubject$.next((event.target as HTMLInputElement).value);
@@ -47,14 +47,35 @@ export class LoginComponent {
 
   public async login$() {
     const user = await firstValueFrom(this.user$);
-    console.log(user);
+
+    if(user.username.trim() === '') {
+      this.store.dispatch(new ToastAction.ShowToast({
+        message: `Username cannot be empty.`,
+        type: ToastType.ERROR,
+        duration: 3000
+      }))
+      return;
+    }
+
+    if(user.password.trim() === '') {
+      this.store.dispatch(new ToastAction.ShowToast({
+        message: `Password cannot be empty.`,
+        type: ToastType.ERROR,
+        duration: 3000
+      }))
+      return;
+    }
+
     return firstValueFrom(this.userService.login$(user)).then((user) => {
       this.store.dispatch(new UserAction.SetUser(user));
     }).then(() => {
-      this.router.navigateByUrl(this.router.createUrlTree(['/'])); // Navigate to home or dashboard after login
+      this.store.dispatch(new ToastAction.ShowToast({
+        message: `Welcome back, ${user.username}!`,
+        type: ToastType.SUCCESS,
+        duration: 3000
+      }))
+      this.router.navigateByUrl(this.router.createUrlTree(['/']));
     });
   }
-
-
 
 }
