@@ -1,6 +1,10 @@
 @let reveal = revealed$ | async;
 @if (flashCard()) {
   <div class="flashcard-card">
+    <div class="flashcard-title">
+      <h2>{{ flashCard().title }}</h2>
+
+      </div>
     <div class="flashcard-question">
       <h3>{{ flashCard().question }}</h3>
     </div>

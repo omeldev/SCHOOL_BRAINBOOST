@@ -16,7 +16,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(@Nonnull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200") // Angular app URL
+                        .allowedOrigins("http://localhost:4200", "http://localhost") // Angular app Dev url
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .allowedHeaders("*").allowCredentials(true);
             }

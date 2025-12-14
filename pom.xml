@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.omel</groupId>
-    <artifactId>BrainBoostBackend</artifactId>
+    <artifactId>BrainBoost</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>BrainBoostBackend</name>
     <description>BrainBoostBackend</description>
