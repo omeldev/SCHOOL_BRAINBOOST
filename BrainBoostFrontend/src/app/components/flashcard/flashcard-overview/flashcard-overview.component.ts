@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {FlashcardService} from '../../../service/rest/flashcard/flashcard.service';
-import {filter, firstValueFrom, switchMap, tap} from 'rxjs';
+import {filter, firstValueFrom, switchMap} from 'rxjs';
 import {Store} from '@ngxs/store';
 import {UserState} from '../../../store/user/user.state';
 import {AsyncPipe} from '@angular/common';
