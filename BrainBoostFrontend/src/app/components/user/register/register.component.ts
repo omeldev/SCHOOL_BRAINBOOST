@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {BehaviorSubject, combineLatest, firstValueFrom, map} from 'rxjs';
+import {Component, signal} from '@angular/core';
+import {firstValueFrom} from 'rxjs';
 import {RegisterBean} from '../../../bean/user';
 import {UserService} from '../../../service/rest/user/user.service';
 import {Store} from '@ngxs/store';
@@ -7,64 +7,46 @@ import {UserAction} from '../../../store/user/user.actions';
 import {Router} from '@angular/router';
 import {ToastAction} from '../../../store/toast/toast.action';
 import {ToastType} from '../../../bean/ToastBean';
+import {form, FormField} from '@angular/forms/signals';
+
+interface RegisterFormDate {
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
 
 @Component({
   selector: 'app-register',
-  imports: [],
+  imports: [
+    FormField
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
 
-  private readonly usernameSubject$ = new BehaviorSubject("");
-  public readonly username$ = this.usernameSubject$.asObservable();
+  private readonly registerFormModel = signal<RegisterFormDate>({
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: ''
+  });
 
-  private readonly passwordSubject$ = new BehaviorSubject("");
-  public readonly password$ = this.passwordSubject$.asObservable();
-
-  private readonly firstNameSubject$ = new BehaviorSubject("");
-  public readonly firstName$ = this.firstNameSubject$.asObservable();
-
-  private readonly lastNameSubject$ = new BehaviorSubject("");
-  public readonly lastName$ = this.lastNameSubject$.asObservable();
-
-  public readonly registerUserBean$ = combineLatest([
-    this.username$,
-    this.password$,
-    this.firstName$,
-    this.lastName$
-  ]).pipe(
-    map(([username, password, firstName, lastName]): RegisterBean => ({
-      username: username,
-      password: password,
-      firstName: firstName,
-      lastName: lastName
-    }))
-  );
+  public readonly registerForm = form(this.registerFormModel);
 
   constructor(private readonly userService: UserService,
               private readonly store: Store,
               private readonly router: Router) {
   }
 
-  public nextUsername(event: Event) {
-    this.usernameSubject$.next((event.target as HTMLInputElement).value);
-  }
-
-  public nextPassword(event: Event) {
-    this.passwordSubject$.next((event.target as HTMLInputElement).value);
-  }
-
-  public nextFirstName(event: Event) {
-    this.firstNameSubject$.next((event.target as HTMLInputElement).value);
-  }
-
-  public nextLastName(event: Event) {
-    this.lastNameSubject$.next((event.target as HTMLInputElement).value);
-  }
-
   public async register$() {
-    const registerBean = await firstValueFrom(this.registerUserBean$);
+    const registerBean: RegisterBean = {
+      username: this.registerFormModel().username,
+      password: this.registerFormModel().password,
+      firstName: this.registerFormModel().firstName,
+      lastName: this.registerFormModel().lastName
+    };
 
     if(registerBean.firstName?.trim() === '') {
       this.store.dispatch(new ToastAction.ShowToast({
